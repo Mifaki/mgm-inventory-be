@@ -3,7 +3,8 @@ import { config } from "dotenv";
 
 config();
 
-if (process.env.NODE_ENV !== "production") {
+// Only start the server locally, not on Vercel
+if (process.env.NODE_ENV !== "production" && !process.env.VERCEL) {
   const PORT = process.env.PORT || 3000;
 
   const gracefulShutdown = (signal: string) => {
