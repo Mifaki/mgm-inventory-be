@@ -1,4 +1,4 @@
-import { ApiResponse } from "@/models/general";
+import { ApiResponse } from "../models/types/general";
 import type { Response } from "express";
 
 export const sendSuccess = <T>(
