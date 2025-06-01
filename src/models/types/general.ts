@@ -14,3 +14,9 @@ export interface ApiError extends Error {
   statusCode?: number;
   isOperational?: boolean;
 }
+
+export interface BasePagination {
+  total: number;
+  page: number;
+  limit: number;
+}

@@ -5,6 +5,7 @@ import cors from "cors";
 import express from "express";
 import healthRoutes from "./routes/health";
 import helmet from "helmet";
+import itemRoutes from "./routes/item";
 import { rateLimiter } from "./middleware/rateLimit";
 import { requestLogger } from "./middleware/logger";
 
@@ -51,6 +52,7 @@ app.use(rateLimiter);
 
 const apiVersion = process.env.API_VERSION || "v1";
 app.use(`/api/${apiVersion}/health`, healthRoutes);
+app.use(`/api/${apiVersion}/item`, itemRoutes);
 
 app.get("/", (req, res) => {
   res.json({

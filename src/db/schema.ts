@@ -13,3 +13,15 @@ export const users = sqliteTable("users", {
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
 });
+
+export const items = sqliteTable("items", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  quantity: integer("quantity").notNull().default(0),
+  createdAt: text("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: text("updated_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+});
