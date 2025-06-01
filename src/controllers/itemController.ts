@@ -8,7 +8,7 @@ import {
 
 import { ItemService } from "../services/itemService";
 import { isValidULID } from "../utils/ulid";
-import { paginationSchema } from "@/models/schema/general";
+import { paginationSchema } from "../models/schema/general";
 
 export class ItemController {
   static async createItem(req: Request, res: Response): Promise<void> {
