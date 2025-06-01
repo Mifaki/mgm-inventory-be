@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 
-import { ApiError } from "@/models/types/general";
+import { ApiError } from "../models/types/general";
 import { ZodError } from "zod";
 
 export class AppError extends Error implements ApiError {

@@ -1,8 +1,8 @@
-import { sendError, sendSuccess } from "@/utils/response";
+import { sendError, sendSuccess } from "../utils/response";
 
 import { Router } from "express";
-import { asyncHandler } from "@/middleware/error";
-import { db } from "@/db/connection";
+import { asyncHandler } from "../middleware/error";
+import { db } from "../db/connection";
 import { sql } from "drizzle-orm";
 
 const router = Router();
