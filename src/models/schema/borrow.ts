@@ -35,4 +35,28 @@ export const updateBorrowStatusSchema = z.object({
   status: z.string().min(1, "Status is required"),
 });
 
+export const createReturnSchema = z.object({
+  itemId: z.string().min(1, "Item ID is required"),
+  borrowDate: z
+    .string()
+    .regex(dateRegex, "Borrow date must be in DD/MM/YYYY format"),
+  returnDate: z
+    .string()
+    .regex(dateRegex, "Return date must be in DD/MM/YYYY format"),
+  damagedItem: z
+    .any()
+    .optional()
+    .refine(
+      (file) =>
+        !file ||
+        (typeof file === "object" &&
+          file.mimetype &&
+          file.mimetype.startsWith("image/")),
+      {
+        message: "Damaged item must be an image file",
+      }
+    ),
+});
+
 export type CreateBorrowInput = z.infer<typeof createBorrowSchema>;
+export type CreateReturnInput = z.infer<typeof createReturnSchema>;

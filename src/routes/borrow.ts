@@ -15,4 +15,17 @@ router.post(
 
 router.post("/:id/status", requireAuth, BorrowController.updateBorrowStatus);
 
+router.post(
+  "/return",
+  requireAuth,
+  upload.single("damagedItem"),
+  BorrowController.createReturn
+);
+
+router.post(
+  "/return/:id/status",
+  requireAuth,
+  BorrowController.updateReturnStatus
+);
+
 export default router;
