@@ -3,9 +3,8 @@ import { sendError, sendSuccess } from "../utils/response";
 
 import { BorrowService } from "../services/borrowService";
 import { createBorrowSchema } from "../models/schema/borrow";
-import fs from "fs";
 import { generateULID } from "../utils/ulid";
-import { uploadFile } from "../utils/cloudinary";
+import { uploadFileFromBuffer } from "../utils/cloudinary";
 
 function parseDate(dateStr: string): string {
   const [day, month, year] = dateStr.split("/");
@@ -20,18 +19,14 @@ export class BorrowController {
       userKTM: req.file,
     });
     if (!validation.success) {
-      if (req.file) fs.unlinkSync(req.file.path);
       sendError(res, "Validation error", 400, validation.error.errors);
       return;
     }
     try {
-      const imageUrl = await uploadFile(req.file!.path, {
+      const imageUrl = await uploadFileFromBuffer(req.file!.buffer, {
         folder: "ktm_images",
         resource_type: "image",
       });
-
-      // Remove local file after upload
-      fs.unlinkSync(req.file!.path);
 
       const id = generateULID();
       const borrowDate = parseDate(validation.data.borrowDate);

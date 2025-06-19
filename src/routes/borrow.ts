@@ -3,7 +3,7 @@ import { Router } from "express";
 import multer from "multer";
 import { requireAuth } from "../middleware/auth";
 
-const upload = multer({ dest: "uploads/" });
+const upload = multer({ storage: multer.memoryStorage() });
 const router = Router();
 
 router.post(
