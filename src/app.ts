@@ -1,5 +1,6 @@
 import { errorHandler, notFoundHandler } from "./middleware/error";
 
+import authRoutes from "./routes/auth";
 import compression from "compression";
 import cors from "cors";
 import express from "express";
@@ -53,6 +54,7 @@ app.use(rateLimiter);
 const apiVersion = process.env.API_VERSION || "v1";
 app.use(`/api/${apiVersion}/health`, healthRoutes);
 app.use(`/api/${apiVersion}/item`, itemRoutes);
+app.use(`/api/${apiVersion}/auth`, authRoutes);
 
 app.get("/", (req, res) => {
   res.json({
