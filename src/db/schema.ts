@@ -50,12 +50,13 @@ export const borrow = sqliteTable("borrows", {
   userEmail: text("user_email").notNull(),
   userNIM: text("user_nim").notNull(),
   userProgramStudy: text("user_program_study").notNull(),
-  userKTMUrl: text("user_ktm_url").notNull(),
+  userKTM: text("user_ktm").notNull(),
   reason: text("reason").notNull(),
   borrowDate: text("borrow_date").notNull(),
   pickupDate: text("pickup_date").notNull(),
   returnDate: text("return_date").notNull(),
   status: text("status", { enum: statusEnum }).notNull(),
+  damagedItem: text("damaged_item"),
   createdAt: text("created_at")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),

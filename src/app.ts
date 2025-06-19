@@ -1,6 +1,7 @@
 import { errorHandler, notFoundHandler } from "./middleware/error";
 
 import authRoutes from "./routes/auth";
+import borrowRoutes from "./routes/borrow";
 import compression from "compression";
 import cors from "cors";
 import express from "express";
@@ -55,6 +56,7 @@ const apiVersion = process.env.API_VERSION || "v1";
 app.use(`/api/${apiVersion}/health`, healthRoutes);
 app.use(`/api/${apiVersion}/item`, itemRoutes);
 app.use(`/api/${apiVersion}/auth`, authRoutes);
+app.use(`/api/${apiVersion}/borrow`, borrowRoutes);
 
 app.get("/", (req, res) => {
   res.json({

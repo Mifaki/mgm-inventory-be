@@ -36,6 +36,20 @@
       "when": 1750338784921,
       "tag": "0004_nice_loa",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1750340383082,
+      "tag": "0005_abandoned_shiver_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1750340624916,
+      "tag": "0006_tan_ghost_rider",
+      "breakpoints": true
     }
   ]
 }

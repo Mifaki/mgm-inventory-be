@@ -1,0 +1,1 @@
+ALTER TABLE `borrows` ADD `damaged_item_url` text;
