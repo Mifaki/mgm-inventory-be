@@ -39,4 +39,17 @@ export class BorrowService {
       .returning();
     return created;
   }
+
+  static async updateBorrowStatus(
+    id: string,
+    status: "borrow-approved" | "borrow-rejected"
+  ) {
+    const [updated] = await db
+      .update(borrow)
+      .set({ status })
+      .where(eq(borrow.id, id))
+      .returning();
+    if (!updated) throw new Error("Borrow record not found");
+    return updated;
+  }
 }

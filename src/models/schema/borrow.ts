@@ -31,4 +31,8 @@ export const createBorrowSchema = z.object({
     .regex(dateRegex, "Return date must be in DD/MM/YYYY format"),
 });
 
+export const updateBorrowStatusSchema = z.object({
+  status: z.string().min(1, "Status is required"),
+});
+
 export type CreateBorrowInput = z.infer<typeof createBorrowSchema>;

@@ -1,8 +1,11 @@
 import { Request, Response } from "express";
+import {
+  createBorrowSchema,
+  updateBorrowStatusSchema,
+} from "../models/schema/borrow";
 import { sendError, sendSuccess } from "../utils/response";
 
 import { BorrowService } from "../services/borrowService";
-import { createBorrowSchema } from "../models/schema/borrow";
 import { generateULID } from "../utils/ulid";
 import { uploadFileFromBuffer } from "../utils/cloudinary";
 
@@ -50,6 +53,36 @@ export class BorrowController {
       });
 
       sendSuccess(res, borrow, "Borrow record created successfully", 201);
+    } catch (err: any) {
+      sendError(res, err.message, 500);
+    }
+  }
+
+  static async updateBorrowStatus(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const validation = updateBorrowStatusSchema.safeParse(req.body);
+
+    if (!validation.success) {
+      sendError(res, "Validation error", 400, validation.error.errors);
+      return;
+    }
+
+    const { status } = validation.data;
+
+    if (!["approved", "rejected"].includes(status)) {
+      sendError(res, "Invalid status", 400);
+      return;
+    }
+
+    const mappedStatus =
+      status === "approved" ? "borrow-approved" : "borrow-rejected";
+    try {
+      const updated = await BorrowService.updateBorrowStatus(
+        String(id),
+        mappedStatus
+      );
+      sendSuccess(res, updated, `Borrow ${status} successfully`);
     } catch (err: any) {
       sendError(res, err.message, 500);
     }
