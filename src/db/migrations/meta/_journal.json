@@ -15,6 +15,13 @@
       "when": 1748793551275,
       "tag": "0001_dusty_robin_chapel",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1750336525979,
+      "tag": "0002_slimy_shard",
+      "breakpoints": true
     }
   ]
 }
