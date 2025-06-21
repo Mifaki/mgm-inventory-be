@@ -15,4 +15,6 @@ router.post(
 
 router.post("/:id/status", requireAuth, BorrowController.updateBorrowStatus);
 
+router.get("/", requireAuth, BorrowController.getBorrows);
+
 export default router;

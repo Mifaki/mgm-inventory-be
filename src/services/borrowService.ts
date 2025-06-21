@@ -99,4 +99,26 @@ export class BorrowService {
       throw new Error("Return record not found or not in return-pending state");
     return updated;
   }
+
+  static async getBorrows({ page, limit }: { page: number; limit: number }) {
+    const offset = (page - 1) * limit;
+    const result = await db.select({ total: sql`COUNT(*)` }).from(borrow);
+    const total = Number(result[0]?.total ?? 0);
+
+    const borrowsList = await db
+      .select()
+      .from(borrow)
+      .orderBy(sql`created_at DESC`)
+      .limit(limit)
+      .offset(offset);
+
+    return {
+      borrows: borrowsList,
+      pagination: {
+        page,
+        limit,
+        total,
+      },
+    };
+  }
 }

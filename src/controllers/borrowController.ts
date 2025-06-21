@@ -1,3 +1,4 @@
+import { PaginationInput, paginationSchema } from "../models/schema/general";
 import { Request, Response } from "express";
 import {
   createBorrowSchema,
@@ -152,5 +153,35 @@ export class BorrowController {
     } catch (err: any) {
       sendError(res, err.message, 500);
     }
+  }
+
+  static async getBorrows(req: Request, res: Response) {
+    const queryParams =
+      Object.keys(req.query).length === 0
+        ? { page: "1", limit: "10" }
+        : req.query;
+
+    const validation = paginationSchema.safeParse(queryParams);
+
+    if (!validation.success) {
+      sendError(
+        res,
+        "Invalid pagination parameters",
+        400,
+        validation.error.errors
+      );
+      return;
+    }
+
+    const result = await BorrowService.getBorrows(
+      validation.data as PaginationInput
+    );
+    const { sendPaginatedResponse } = await import("../utils/response");
+    sendPaginatedResponse(
+      res,
+      result.borrows,
+      result.pagination,
+      "Borrows retrieved successfully"
+    );
   }
 }
