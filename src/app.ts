@@ -10,6 +10,7 @@ import helmet from "helmet";
 import itemRoutes from "./routes/item";
 import { rateLimiter } from "./middleware/rateLimit";
 import { requestLogger } from "./middleware/logger";
+import returnRoutes from "./routes/return";
 
 const app = express();
 
@@ -57,6 +58,7 @@ app.use(`/api/${apiVersion}/health`, healthRoutes);
 app.use(`/api/${apiVersion}/item`, itemRoutes);
 app.use(`/api/${apiVersion}/auth`, authRoutes);
 app.use(`/api/${apiVersion}/borrow`, borrowRoutes);
+app.use(`/api/${apiVersion}/return`, returnRoutes);
 
 app.get("/", (req, res) => {
   res.json({

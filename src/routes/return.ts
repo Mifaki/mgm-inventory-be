@@ -1,4 +1,4 @@
-import { BorrowController } from "../controllers/borrowController";
+import { ReturnController } from "../controllers/returnController";
 import { Router } from "express";
 import multer from "multer";
 import { requireAuth } from "../middleware/auth";
@@ -7,12 +7,16 @@ const upload = multer({ storage: multer.memoryStorage() });
 const router = Router();
 
 router.post(
-  "/",
+  "/return",
   requireAuth,
-  upload.single("userKTM"),
-  BorrowController.createBorrow
+  upload.single("damagedItem"),
+  ReturnController.createReturn
 );
 
-router.post("/:id/status", requireAuth, BorrowController.updateBorrowStatus);
+router.post(
+  "/return/:id/status",
+  requireAuth,
+  ReturnController.updateReturnStatus
+);
 
 export default router;
