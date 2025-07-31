@@ -38,7 +38,7 @@ export async function login({
   const valid = await bcrypt.compare(password, user.password);
   if (!valid) throw new Error("Invalid credentials");
   const accessToken = jwt.sign({ userId: user.id }, ACCESS_TOKEN_SECRET, {
-    expiresIn: "20m",
+    expiresIn: "60m",
   });
   const refreshToken = jwt.sign({ userId: user.id }, REFRESH_TOKEN_SECRET, {
     expiresIn: "7d",
@@ -56,7 +56,7 @@ export async function refreshToken(token: string) {
     const accessToken = jwt.sign(
       { userId: payload.userId },
       ACCESS_TOKEN_SECRET,
-      { expiresIn: "20m" }
+      { expiresIn: "60m" }
     );
     return { accessToken };
   } catch {
